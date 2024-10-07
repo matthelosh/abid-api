@@ -11,8 +11,8 @@ class MateriController extends Controller
     {
         try {
             $babId = $request->bab;
-            return Materi::whereBabId($babId)->get();
-        } catch(\Exception $e) {
+            return Materi::whereBabId($babId)->with('soals')->get();
+        } catch (\Exception $e) {
             dd($e->getMessage());
         }
     }

@@ -27,4 +27,9 @@ class Materi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function soals()
+    {
+        return $this->hasMany(Soal::class);
+    }
 }
