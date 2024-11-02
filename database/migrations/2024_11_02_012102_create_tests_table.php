@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->integer('bab_id');
-            $table->text('title');
-            $table->text('slug');
-            $table->text('content');
-            $table->text('cover')->nullable();
+            $table->foreignId('materi_id')->references('id')->on('materis')->onDelete('cascade');
+            $table->enum('tipe', ['pretes', 'postes']);
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('tests');
     }
 };

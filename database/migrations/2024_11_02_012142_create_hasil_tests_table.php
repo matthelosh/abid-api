@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('hasil_tests', function (Blueprint $table) {
             $table->id();
-            $table->integer('bab_id');
-            $table->text('title');
-            $table->text('slug');
-            $table->text('content');
-            $table->text('cover')->nullable();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('test_id')->references('id')->on('tests')->onDelete('cascade');
+            $table->integer('skor')->nullable();
+            $table->string('durasi')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('hasil_tests');
     }
 };
