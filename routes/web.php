@@ -28,6 +28,13 @@ Route::prefix('dashboard')->group(
                 Route::post('/image-upload', [MateriController::class, 'uploadImage'])->name('dashboard.materi.image.upload');
             }
         );
+
+        Route::prefix('soal')->group(
+            function () {
+                Route::post('/store', [SoalController::class, 'store'])->name('dashboard.soal.store');
+                Route::post('/image-upload', [SoalController::class, 'uploadImage'])->name('dashboard.soal.image.upload');
+            }
+        );
     }
 )->middleware(['auth', 'verified'])->name('dashboard');
 

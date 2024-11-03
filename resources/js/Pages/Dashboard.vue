@@ -4,6 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 
 const WriteMateri = defineAsyncComponent(() => import('@/Components/WriteMateri.vue'))
+const Soal = defineAsyncComponent(() => import('@/Components/Soal.vue'))
 
 const props = defineProps({ kelas: Array})
 
@@ -27,6 +28,17 @@ const closeWriteMateri = () => {
     selectedMateri.value = null
     openWriteWateri.value = null
     router.reload({only: ['kelas']})
+}
+
+const openSoal = ref(false)
+const addSoal = (materi) => {
+    selectedMateri.value = materi
+    openSoal.value = true
+}
+
+const closeSoal = () => {
+    selectedMateri.value = null
+    openSoal.value = false
 }
 </script>
 
@@ -81,7 +93,7 @@ const closeWriteMateri = () => {
                                                     {{ item?.content.substring(0,100) }}
                                                 </template>
                                                 <template v-slot:item.soals="{item}">
-                                                    <v-btn color="primary" size="small" variant="outlined" >
+                                                    <v-btn color="primary" @click="addSoal(item)" size="small" variant="outlined" >
                                                         {{ item?.soals.length }} butir
                                                     </v-btn>
                                                 </template>
@@ -107,6 +119,7 @@ const closeWriteMateri = () => {
         </div>
     </AuthenticatedLayout>
     <WriteMateri v-if="openWriteWateri" :selected-materi="selectedMateri" :selected-bab="selectedBab" :open="openWriteWateri" @close="closeWriteMateri" />
+    <Soal v-if="openSoal" :selected-materi="selectedMateri" :open="openSoal" @close="closeSoal" />
 </template>
 
 <style>
