@@ -40,6 +40,12 @@ const closeSoal = () => {
     selectedMateri.value = null
     openSoal.value = false
 }
+
+const edit = (item, bab, kelas) => {
+    selectedBab.value = bab
+    selectedMateri.value = item
+    openWriteWateri.value = true
+}
 </script>
 
 <template>
@@ -99,7 +105,7 @@ const closeSoal = () => {
                                                 </template>
                                                 <template v-slot:item.opsi="{item}">
                                                     <div class="v-btn-group" size="small" >
-                                                        <v-btn color="warning" size="small" variant="outlined" >
+                                                        <v-btn color="warning" size="small" variant="outlined" @click="edit(item, bab, kelas)" >
                                                             <v-icon>mdi-pencil</v-icon>
                                                         </v-btn>
                                                         <v-btn color="error" size="small" variant="outlined" >

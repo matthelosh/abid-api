@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function home(Request $request)
     {
         $kelas = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             \array_push($kelas, [
                 'tingkat' => $i,
                 'label' => 'Kelas ' . $i,
