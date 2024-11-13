@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { router } from '@inertiajs/vue3';
 import { onBeforeMount, ref } from 'vue';
-import { BaseKit, Bold, Color, Fullscreen, Heading, Highlight, History, Image, Italic, Link, Strike, Table, Underline, Video, VuetifyTiptap, VuetifyViewer } from 'vuetify-pro-tiptap'
+import { BaseKit, Bold, BulletList, Color, Fullscreen, Heading, Highlight, History, Image, Italic, Link, OrderedList, Strike, Table, TaskList, Underline, Video, VuetifyTiptap, VuetifyViewer } from 'vuetify-pro-tiptap'
 import 'vuetify-pro-tiptap/style.css'
 const QuestionExtensions = [
   BaseKit.configure({
@@ -47,6 +47,9 @@ const OptionExtensions = [
   Bold,
   Italic,
   Underline,
+  OrderedList,
+  BulletList,
+  TaskList,
   Strike,
   Color,
   Highlight,
