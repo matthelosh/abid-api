@@ -14,14 +14,6 @@ class SoalController extends Controller
 
         try {
 
-            if ($request->file('cover')) {
-                $file = $request->file('cover');
-                $store = $file->storePubliclyAs('images', Str::random(10), 'public');
-                $cover = Storage::url($store);
-            } else {
-                $cover = $request->cover ?? null;
-            }
-
             $materi = Soal::updateOrCreate(
                 [
                     'id' => $request->id ?? null
@@ -52,7 +44,7 @@ class SoalController extends Controller
             $file = $request->file('file');
             $store = $file->storePubliclyAs('images', Str::random(10), 'public');
 
-            return Storage::url($store);
+            return env('APP_URL') . Storage::url($store);
         } catch (\Throwable $th) {
             throw $th;
         }
