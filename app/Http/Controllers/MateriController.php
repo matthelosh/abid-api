@@ -24,10 +24,10 @@ class MateriController extends Controller
 
         try {
 
-            if ($request->file('cover')) {
-                $file = $request->file('cover');
+            if ($request->file('fileCover')) {
+                $file = $request->file('fileCover');
                 $store = $file->storePubliclyAs('images', Str::random(10), 'public');
-                $cover = Storage::url($store);
+                $cover = env('APP_URL') . Storage::url($store);
             } else {
                 $cover = $request->cover ?? null;
             }
@@ -61,7 +61,7 @@ class MateriController extends Controller
             $file = $request->file('file');
             $store = $file->storePubliclyAs('images', Str::random(10), 'public');
 
-            return Storage::url($store);
+            return env('APP_URL') . Storage::url($store);
         } catch (\Throwable $th) {
             throw $th;
         }
