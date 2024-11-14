@@ -126,7 +126,7 @@ const simpan = async() => {
     let fd = new FormData()
     fd.append("materi_id", props.selectedMateri.id)
     if (soalId.value) {
-        fd.append("soalId", soalId.value.id)
+        fd.append("soalId", soalId.value)
     }
     fd.append("pertanyaan", pertanyaan.value)
     fd.append("a", a.value)
