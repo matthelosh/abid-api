@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { router } from '@inertiajs/vue3';
 import { onBeforeMount, ref } from 'vue';
-import { BaseKit, Bold, BulletList, Color, Fullscreen, Heading, Highlight, History, Image, Italic, Link, OrderedList, Strike, Table, TaskList, Underline, Video, VuetifyTiptap, VuetifyViewer } from 'vuetify-pro-tiptap'
+import { BaseKit, Bold, BulletList, Color, FontFamily, FontSize, Fullscreen, Heading, Highlight, History, Image, Italic, Link, OrderedList, Strike, Table, TaskList, TextAlign, Underline, Video, VuetifyTiptap, VuetifyViewer } from 'vuetify-pro-tiptap'
 import 'vuetify-pro-tiptap/style.css'
 const QuestionExtensions = [
   BaseKit.configure({
@@ -14,6 +14,11 @@ const QuestionExtensions = [
   Italic,
   Underline,
   Strike,
+  OrderedList,
+  BulletList,
+  TextAlign,
+  FontSize,
+  FontFamily,
   Color,
   Highlight,
   Heading,
@@ -44,6 +49,8 @@ const OptionExtensions = [
       placeholder: 'Tulis Pilihan'
     }
   }),
+  TextAlign,
+  FontSize,
   Bold,
   Italic,
   Underline,
@@ -92,6 +99,8 @@ const selectedSoal = ref(null)
 
 const edit = (item) => {
     selectedSoal.value = item
+    pertanyaan.value = item.pertanyaan
+    soalId.value = item.id
     a.value = item.a
     b.value = item.b
     c.value = item.c
@@ -102,6 +111,7 @@ const edit = (item) => {
 
 const closeForm = () => {
     selectedSoal.value = null
+    soalId.value = null
     a.value = ""
     b.value = ""
     c.value = ""
@@ -134,6 +144,28 @@ const simpan = async() => {
         })
 }
 
+const hapus = async(item) => {
+    await axios.delete(route('dashboard.soal.delete', {id: item.id}))
+        .then(res => {
+            router.reload({only: ['kelas']})
+            soals.value = props.selectedMateri.soals ?? []
+            let index = soals.value.findIndex(soal => soal.id == item.id)
+            soals.value.splice(index,1)
+        }).catch(err => {
+            console.log(err)
+        })
+}
+
+const soalHeaders = ref([
+    { title: 'Pertanyaan', key: 'pertanyaan'},
+    { title: 'A', key: 'a'},
+    { title: 'B', key: 'b'},
+    { title: 'C', key: 'c'},
+    { title: 'D', key: 'd'},
+    { title: 'Kunci', key: 'kunci'},
+    { title: 'Opsi', key: 'opsi'},
+])
+
 onBeforeMount(() => {
     show.value = props.open
     soals.value = props.selectedMateri.soals ?? []
@@ -165,11 +197,40 @@ onBeforeMount(() => {
             </v-toolbar>
         </v-card-title>
         <v-card-text>
-            <v-data-table :items="soals" v-if="mode=='list'"></v-data-table>
+            <v-data-table :headers="soalHeaders" :items="soals" v-if="mode=='list'">
+                <template v-slot:item.pertanyaan="{item}">
+                    <div v-html="item.pertanyaan"></div>
+                </template>
+                <template v-slot:item.a="{item}">
+                    <div v-html="item.a"></div>
+                </template>
+                <template v-slot:item.b="{item}">
+                    <div v-html="item.b"></div>
+                </template>
+                <template v-slot:item.c="{item}">
+                    <div v-html="item.c"></div>
+                </template>
+                <template v-slot:item.d="{item}">
+                    <div v-html="item.d"></div>
+                </template>
+                <template v-slot:item.kunci="{item}">
+                    <div v-html="item.kunci"></div>
+                </template>
+                <template v-slot:item.opsi="{item}">
+                    <span>
+                        <v-btn color="warning" variant="flat" icon size="small" class="mr-2" @click="edit(item)">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+                        <v-btn color="error" variant="flat" icon size="small" @click="hapus(item)">
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </span>
+                </template>
+            </v-data-table>
 
             <v-container v-if="mode=='form'">
                 <v-row justify="center">
-                    <v-col cols="8">
+                    <v-col cols="12" sm="12" lg="8">
                         <v-form>
                             <v-card variant="outlined" color="blue-darken-4">
                                 <v-card-title>Form Soal</v-card-title>

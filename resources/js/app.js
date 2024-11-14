@@ -18,6 +18,7 @@ const vuetify = createVuetify({
         defaultSet: 'mdi'
     }
 })
+// import confirmDialogPlugin from './plugins/confirmDialogPlugin';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

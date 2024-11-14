@@ -49,4 +49,17 @@ class SoalController extends Controller
             throw $th;
         }
     }
+
+    public function destroy(Soal $soal, $id)
+    {
+        try {
+            $delete = $soal->destroy($id);
+            return \response()->json([
+                'data' => $delete,
+                'message' => 'Soal dihapus'
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

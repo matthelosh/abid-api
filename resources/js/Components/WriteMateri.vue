@@ -45,12 +45,13 @@
                                 <v-img
                                     @click="$refs.inputCover.click()"
                                     :src="materi.cover"
+                                    max-width="400"
                                 >
                                     <template
                                         v-slot:default
                                         v-if="!materi.cover"
                                     >
-                                        <v-icon>mdi-image</v-icon>
+                                        <v-icon style="font-size: 10rem; text-align: center; cursor: pointer;">mdi-image</v-icon>
                                     </template>
                                 </v-img>
                             </v-expansion-panel-text>
@@ -97,6 +98,9 @@ import {
     Video,
     VuetifyTiptap,
     VuetifyViewer,
+    FontFamily,
+    FontSize,
+    TextAlign,
 } from "vuetify-pro-tiptap";
 import "vuetify-pro-tiptap/style.css";
 
@@ -117,6 +121,9 @@ const extensions = [
     Italic,
     Underline,
     Strike,
+    FontFamily,
+    FontSize,
+    TextAlign,
     OrderedList,
     BulletList,
     TaskList,
