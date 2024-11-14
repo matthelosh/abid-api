@@ -16,7 +16,7 @@ class SoalController extends Controller
 
             $materi = Soal::updateOrCreate(
                 [
-                    'id' => $request->id ?? null
+                    'id' => $request->soalId ?? null
                 ],
                 [
                     'materi_id' => $request->materi_id,
